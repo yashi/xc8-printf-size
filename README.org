@@ -1,0 +1,112 @@
+#+title: Microchip XC8 printf size comparison
+
+  This demonstrates the size differences of generated binaries using
+  Microchip XC8 Compiler with different printf format specifiers.
+
+* Source
+  All source code are in a simple hello world style with different
+  print specifiers.
+
+  #+begin_src c
+    #include <stdio.h>
+
+    void main(void)
+    {
+	    printf("%d", 42);
+    }
+  #+end_src
+
+* Execute
+  #+begin_src shell
+    $ make
+  #+end_src
+
+* Results
+  #+begin_example
+    Executed on Wed Nov 30 09:55:17 PM UTC 2022 using:
+    Microchip MPLAB XC8 C Compiler V2.40
+    Build date: Jul  3 2022
+    Part Support Version: 2.40
+    Copyright (C) 2022 Microchip Technology Inc.
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/int src/int.c
+
+    Memory Summary:
+	Program space        used   1FCh (   508) of 20000h bytes   (  0.4%)
+	Data space           used    18h (    24) of   F60h bytes   (  0.6%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/uint src/uint.c
+
+    Memory Summary:
+	Program space        used   1DEh (   478) of 20000h bytes   (  0.4%)
+	Data space           used    18h (    24) of   F60h bytes   (  0.6%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/uintx src/uintx.c
+
+    Memory Summary:
+	Program space        used   1A0h (   416) of 20000h bytes   (  0.3%)
+	Data space           used    13h (    19) of   F60h bytes   (  0.5%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/uinto src/uinto.c
+
+    Memory Summary:
+	Program space        used   17Eh (   382) of 20000h bytes   (  0.3%)
+	Data space           used    12h (    18) of   F60h bytes   (  0.5%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/str src/str.c
+
+    Memory Summary:
+	Program space        used   11Ah (   282) of 20000h bytes   (  0.2%)
+	Data space           used     Ah (    10) of   F60h bytes   (  0.3%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/char src/char.c
+
+    Memory Summary:
+	Program space        used    A8h (   168) of 20000h bytes   (  0.1%)
+	Data space           used     8h (     8) of   F60h bytes   (  0.2%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/pointer src/pointer.c
+
+    Memory Summary:
+	Program space        used   1B4h (   436) of 20000h bytes   (  0.3%)
+	Data space           used    15h (    21) of   F60h bytes   (  0.5%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/float src/float.c
+
+    Memory Summary:
+	Program space        used  1BFCh (  7164) of 20000h bytes   (  5.5%)
+	Data space           used    6Eh (   110) of   F60h bytes   (  2.8%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+
+    xc8-cc -mcpu=pic18lf8723 -w -mc90lib -Os -o outdir/double src/double.c
+
+    Memory Summary:
+	Program space        used  231Eh (  8990) of 20000h bytes   (  6.9%)
+	Data space           used    80h (   128) of   F60h bytes   (  3.3%)
+	Configuration bits   used     0h (     0) of     7h words   (  0.0%)
+	EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
+	ID Location space    used     0h (     0) of     8h bytes   (  0.0%)
+  #+end_example
